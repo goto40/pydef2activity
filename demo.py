@@ -12,7 +12,8 @@ def foo(y=2):
     #end activitiy
     print(x*2)
     if(x>y):
-        print(x*y)
+	for a in range(10):
+        	print(a+x*y)
     elif(x==y):
         y=y-1
         print(x+y)        

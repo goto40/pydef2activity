@@ -40,6 +40,10 @@ def transformPy2Pu(f):
                 res+=":%s;\n"%(k.dumps())
                 res+="stop\n"
                 stop_active=True
+            elif(k.type=='for'):
+                res+="while (%s in %s)\n"%(k.iterator.dumps(),k.target.dumps())
+                res+=transformPy2Pu(k.value)
+                res+="endwhile\n"
             elif(k.type=="comment"):
                 txt=k.dumps()
                 m = re.search(r'#\s*activity\s+(.*)',txt)
