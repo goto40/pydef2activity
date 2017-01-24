@@ -63,5 +63,5 @@ def transformPy2Pu(f):
                     res+="stop\n"                
     return res
 
-res = "@startuml\n"+transformPy2Pu(f)+"@enduml";
+res = "@startuml\nstart\n"+transformPy2Pu(f)+"@enduml";
 print(res)
