@@ -1,0 +1,3 @@
+./pydef2activity_code $* >$2.plantuml
+plantuml $2.plantuml
+xdg-open $2.png

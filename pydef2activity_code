@@ -1,0 +1,63 @@
+#!/usr/bin/python3
+import redbaron,re,sys
+
+if len(sys.argv)!=3:
+    print("usage %s <file> <function name>"%(sys.argv[0]))
+    exit(1)
+
+with open(sys.argv[1], "r") as source_code:
+    red = redbaron.RedBaron(source_code.read())
+
+f = red.find("def",sys.argv[2]);
+if f==None:
+    print("function %s not found"%(sys.argv[2]))
+    exit(1)
+
+def transformPy2Pu(f):    
+    res=""
+    comment_summary=False
+    for k in f:
+        stop_active=False
+        if (comment_summary):
+            if(k.type=="comment"):
+                txt=k.dumps()
+                m = re.search(r'#\s*end\s*activity',txt)
+                comment_summary=False;
+        else:
+            if(k.type=='ifelseblock'):
+                res+=transformPy2Pu(k.value)
+                res+="endif\n"
+            elif(k.type=='if'):
+                res+="if (%s) then (yes)\n"%(k.test.dumps())
+                res+=transformPy2Pu(k.value)
+            elif(k.type=='elif'):
+                res+="elseif (%s) then (yes)\n"%(k.test.dumps())
+                res+=transformPy2Pu(k.value)
+            elif(k.type=='else'):
+                res+="else\n"
+                res+=transformPy2Pu(k.value)
+            elif(k.type=='return'):
+                res+=":%s;\n"%(k.dumps())
+                res+="stop\n"
+                stop_active=True
+            elif(k.type=="comment"):
+                txt=k.dumps()
+                m = re.search(r'#\s*activity\s+(.*)',txt)
+                if (m):
+                    res+=":%s;\n"%(m.group(1))
+                    comment_summary=True;
+                else:
+                    res+="note right\n"
+                    res+="%s\n"%(txt)
+                    res+="end note\n"
+            elif(k.type!="endl"):
+                txt=k.dumps()
+                txt=txt.replace(';',',')
+                res+=":%s;\n"%(txt)
+            else:
+                if stop_active:
+                    res+="stop\n"                
+    return res
+
+res = "@startuml\n"+transformPy2Pu(f)+"@enduml";
+print(res)
