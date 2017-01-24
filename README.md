@@ -17,6 +17,7 @@ Usage: ```./pydef2activity <file> <function name>```
  * ```if/elif/else```
  * ```# activity xy``` ... ```# end activiy```
  * ```# comment for last activity```
+ * simple for loops (for a in b)
  
  All other code elements are rendered as activity directly.
  
