@@ -1,6 +1,6 @@
 # pydef2activity
 
-Small example how to transform a 
+Small example script to demonstrate how to transform a python function to an activity diagram. 
 
 ## Run
 
