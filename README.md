@@ -34,9 +34,9 @@ Output: ![Example output for demo.py](foo.png?raw=true)
 
 ## Features
 
- * if/elif/else
- * # activity xy ... # end activiy
- * # comment for last activity
+ * ```if/elif/else```
+ * ```# activity xy``` ... ```# end activiy```
+ * ```# comment for last activity```
  
  All other code elements are rendered as activity directly.
  
