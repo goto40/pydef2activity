@@ -9,6 +9,7 @@ Usage: ```./pydef2activity <file> <function name>```
 ## Example
 
  * Command: ```./pydef2activity demo.py foo```
+ * Input: [Example input demo.py](demo.py)
  * Output: ![Example output for demo.py](foo.png?raw=true)
 
 ## Features
