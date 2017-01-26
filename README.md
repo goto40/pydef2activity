@@ -21,6 +21,9 @@ Usage: ```./pydef2activity <file> <function name>```
  
  All other code elements are rendered as activity directly.
  
-## Install
-
-get the red baron full-AST-parser: ```pip3 install redbaron```
+## Install and preconditions 
+ * get the red baron full-AST-parser: ```pip3 install redbaron```
+ * bash 
+ * plantuml (as command)
+ 
+ 
